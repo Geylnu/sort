@@ -13,6 +13,7 @@ function randomArray(len, maxValue) {
 
 
 function recondTime(fn, nums, type) {
+    nums = Array.from(nums)
     let now = Date.now()
     console.log(fn(nums))
     let newTime = Date.now()
@@ -94,16 +95,32 @@ function quickSort(nums) {
 }
 
 /**
- * 对于数组已经几乎排好序的情况下性能很好  正在优化中
+ * 对于数组已经几乎排好序的情况下性能很好 
  */
 function insertionSort(nums) {
-    for (let i = 0; i < nums.length; i++) {
-        for (let j = i; j > 0; j--) {
-            if (nums[j] < nums[j - 1]) {
-                let temp = nums[j]
-                nums[j] = nums[j - 1]
-                nums[j - 1] = temp
+    for (let i = 1; i < nums.length; i++) {
+        if (nums[i]<nums[i-1]){
+            let temp=nums[i],last =0,next=i-1
+            let middleIndex = Math.floor((last+next)/2)
+            if (nums[0] >temp ){
+                middleIndex = -1
+            }else{
+                while (!(nums[middleIndex] <= temp && nums[middleIndex+1]>=temp)){
+                    if (next-last <=1){
+                        middleIndex = next
+                        break
+                    }
+                    let val = nums[middleIndex]
+                    if (val > temp){
+                        next = middleIndex-1
+                    }else{
+                        last = middleIndex+1
+                    }
+                    middleIndex = Math.floor((last+next)/2)
+                }
             }
+            nums.splice(i,1)
+            nums.splice(middleIndex +1,0,temp)
         }
     }
     return nums
@@ -140,7 +157,7 @@ function mergeSort(nums) {
 
 
 
-let nums = randomArray(100000, 1000000000)
+let nums = randomArray(50000, 1000000)
 recondTime(quickSort, nums)
 recondTime(mergeSort, nums)
 recondTime(insertionSort, nums)
