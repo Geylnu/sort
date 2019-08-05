@@ -11,7 +11,6 @@ function randomArray(len, maxValue) {
     return nums
 }
 
-
 function recondTime(fn, nums, type) {
     nums = Array.from(nums)
     let now = Date.now()
@@ -99,24 +98,26 @@ function quickSort(nums) {
  */
 function insertionSort(nums) {
     for (let i = 1; i < nums.length; i++) {
-        if (nums[i]<nums[i-1]){
-            let temp=nums[i],last =0,next=i-1
-            let middleIndex = Math.floor((last+next)/2)
-            if (nums[0] >temp ){
+        if (nums[i] < nums[i - 1]) {
+            let temp = nums[i], last = 0, next = i - 1
+            let middleIndex = Math.floor((last + next) / 2)
+            if (nums[0] > temp) {
                 middleIndex = -1
-            }else{
-                while (!(nums[middleIndex] <= temp && nums[middleIndex+1]>=temp)){
+            } else {
+                while (!(nums[middleIndex] <= temp && nums[middleIndex + 1] >= temp)) {
                     let val = nums[middleIndex]
-                    if (val > temp){
-                        next = middleIndex-1
-                    }else{
-                        last = middleIndex+1
+                    if (val > temp) {
+                        next = middleIndex - 1
+                    } else {
+                        last = middleIndex + 1
                     }
-                    middleIndex = Math.floor((last+next)/2)
+                    middleIndex = Math.floor((last + next) / 2)
                 }
             }
-            nums.splice(i,1)
-            nums.splice(middleIndex +1,0,temp)
+            for (let k = i; k > middleIndex + 1; k--) {
+                nums[k] = nums[k - 1]
+            }
+            nums[middleIndex + 1] = temp
         }
     }
     return nums
@@ -125,7 +126,7 @@ function insertionSort(nums) {
 function mergeSort(nums) {
     function sort(array, first, last) {
         if (last - first < 1) {
-            return
+            return nums
         }
 
         let middle = Math.floor((first + last) / 2)
@@ -153,7 +154,7 @@ function mergeSort(nums) {
 
 
 
-let nums = randomArray(100, 1000000)
+let nums = randomArray(100000, 1000000)
 recondTime(quickSort, nums)
 recondTime(mergeSort, nums)
 recondTime(insertionSort, nums)
