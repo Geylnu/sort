@@ -106,10 +106,6 @@ function insertionSort(nums) {
                 middleIndex = -1
             }else{
                 while (!(nums[middleIndex] <= temp && nums[middleIndex+1]>=temp)){
-                    if (next-last <=1){
-                        middleIndex = next
-                        break
-                    }
                     let val = nums[middleIndex]
                     if (val > temp){
                         next = middleIndex-1
@@ -157,7 +153,7 @@ function mergeSort(nums) {
 
 
 
-let nums = randomArray(50000, 1000000)
+let nums = randomArray(100, 1000000)
 recondTime(quickSort, nums)
 recondTime(mergeSort, nums)
 recondTime(insertionSort, nums)
